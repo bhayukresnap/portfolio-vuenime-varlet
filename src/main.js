@@ -10,7 +10,7 @@ import HeaderComponent from "./components/HeaderComponent.vue";
 import BannerComponent from './components/BannerComponent';
 import AnimeSlideComponent from './components/AnimeSlideComponent.vue';
 import AnimeCardComponent from './components/AnimeCardComponent.vue';
-
+import NotificationComponent from './components/NotificationComponent.vue';
 import TitleHeadingComponent from './components/TitleHeadingComponent.vue';
 
 const app = createApp(App);
@@ -20,6 +20,7 @@ app.component('banner-component', BannerComponent);
 app.component('anime-slide-component', AnimeSlideComponent);
 app.component('anime-card-component', AnimeCardComponent);
 app.component('title-heading-component', TitleHeadingComponent);
+app.component('notification-component', NotificationComponent);
 app.use(Varlet);
 app.use(Stores);
 app.use(Routers);

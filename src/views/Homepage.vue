@@ -25,9 +25,10 @@ export default {
         !this.$store.state.homepage.topMangas.data.length &&
         !this.$store.state.homepage.upComing.data.length
       ) {
-        console.log("Homepage");
         this.$store.dispatch("homepage/getHomepage");
       }
+      // console.log("mounted home");
+      // this.$store.dispatch("homepage/getHomepage");
     });
   },
 };

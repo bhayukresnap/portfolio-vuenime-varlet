@@ -35,7 +35,6 @@ export default {
   mounted() {
     this.$nextTick(function () {
       if (!this.$store.state.season.seasonList.data.length) {
-        console.log("SeasonIndex");
         this.$store.dispatch("season/getSeasonList");
       }
     });

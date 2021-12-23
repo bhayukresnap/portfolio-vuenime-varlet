@@ -5,10 +5,8 @@
 
 <script>
 export default {
-  created() {
-    this.$store.state.season.seasonDetail.data = 20;
-  },
   mounted() {
+    this.$store.state.season.seasonDetail.data = 20;
     this.$nextTick(function () {
       this.$store.dispatch("season/getSeasonDetail", {
         year: this.$route.params.year,

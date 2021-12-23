@@ -19,7 +19,6 @@ export default {
                     state.topSearch.data = [...state.topSearch.data, convert.searchParams.get('q')];
                 }
                 state.topSearch.data.slice(0, max);
-                console.log(state.topSearch.data);
             }).catch(err => {
                 console.log(err)
             });

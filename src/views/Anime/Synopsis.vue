@@ -1,5 +1,8 @@
 <template>
-  <div>{{data}}</div>
+  <div class="synopsis">
+    <h3 class="animeDetailTitle">Synopsis</h3>
+    <p>{{data.Synopsis}}</p>
+  </div>
 </template>
 
 <script>

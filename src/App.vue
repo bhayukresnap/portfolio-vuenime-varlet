@@ -4,7 +4,7 @@
 
   <main :style="{marginTop: headerHeight + 'px'}">
     <router-view></router-view>
-    <var-back-top :duration="300" />
+    <var-back-top :duration="300" style="z-index: 3;" />
   </main>
 </template>
 
@@ -84,5 +84,21 @@ a:hover {
 }
 .body {
   margin-top: 54px;
+}
+
+.animeDetailTitle {
+  font-size: 20px;
+  font-family: Biotif-Bold;
+  margin: 1em auto 0.5em auto;
+}
+
+.animeDetailLabel::after {
+  content: ":";
+  text-align: right;
+  float: right;
+  margin-right: 5px;
+}
+.animeDetailMultiple:not(:last-child)::after {
+  content: ", ";
 }
 </style>

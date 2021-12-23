@@ -7,7 +7,7 @@ import SeasonDetail from '@/views/Season/Detail.vue';
 import AnimeIndex from '@/views/Anime/Index.vue';
 
 
-export default createRouter({
+const router = createRouter({
     history: createWebHistory(),
     routes: [{
         name: 'home',
@@ -37,3 +37,9 @@ export default createRouter({
         }],
     }, ],
 });
+
+router.beforeEach(() => {
+    window.scrollTo(0, 0);
+});
+
+export default router;

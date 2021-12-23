@@ -61,14 +61,14 @@ export default {
   left: 0;
   font-family: Biotif-bold;
   font-size: 12px;
-  z-index: 2;
+  z-index: 1;
 }
 .badgeScore {
   position: absolute;
   font-size: 14px;
   top: 10px;
   right: 0;
-  z-index: 2;
+  z-index: 1;
   font-family: Biotif-bold;
 }
 @keyframes spin {
