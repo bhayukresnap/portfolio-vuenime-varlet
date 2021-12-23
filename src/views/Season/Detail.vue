@@ -1,6 +1,6 @@
 <template>
   <title-heading-component :text="$route.params.season + ' ' + $route.params.year"></title-heading-component>
-  <anime-card-component :animes="$store.state.season.seasonDetail.data"></anime-card-component>
+  <list-anime-component :animes="$store.state.season.seasonDetail.data"></list-anime-component>
 </template>
 
 <script>

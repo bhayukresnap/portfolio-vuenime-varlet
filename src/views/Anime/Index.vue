@@ -3,7 +3,7 @@
     <h1 class="animeTitle" style="text-align: center;">Anime is not found!</h1>
   </div>
   <div class="animeDetail" v-else>
-    <h1 class="animeTitle">{{informations.Title.Name}}</h1>
+    <h1 class="animeTitle">{{informations.Title ? informations.Title.Name : ""}}</h1>
     <var-row :gutter="10" style="margin-bottom:1em;">
       <var-col :span="12">
         <var-skeleton :loading="loading" card :rows="0">
@@ -15,12 +15,14 @@
           <div class="score">
             <span class="scoreLabel">score</span>
             <h2 class="scoreValue">{{statistics.Score}}</h2>
-            <div class="scoreUser">{{statistics.ScoredBy}} users</div>
+            <div
+              class="scoreUser"
+            >{{statistics.ScoredBy != 0 ? statistics.ScoredBy + " users" : "-"}}</div>
           </div>
           <div class="ranked" v-for="(value, key) in statistics" :key="key">
             <template v-if="key !== 'Score' && key !== 'ScoredBy'">
               {{key}}:
-              <b>{{value}}</b>
+              <b>{{value || value !== 0 ? value : "-"}}</b>
             </template>
           </div>
         </var-skeleton>
@@ -30,7 +32,7 @@
     <var-skeleton :loading="loading" :rows="1">
       <div class="tabList">
         <var-col
-          :span="7"
+          :span="9"
           v-for="tab of tabs"
           :key="tab"
           @click="componentData = tab"
@@ -55,8 +57,7 @@ import { formatPrice } from "@/helpers";
 import InformationComponent from "./Information.vue";
 import SynopsisComponent from "./Synopsis.vue";
 import RelatedAnimeComponent from "./RelatedAnime.vue";
-import CharactersComponent from "./Characters.vue";
-import StaffsComponent from "./Staffs.vue";
+import CharactersAndStaffs from "./CharactersAndStaffs.vue";
 import EpisodesComponent from "./Episodes.vue";
 import ReviewsComponent from "./Reviews.vue";
 export default {
@@ -64,8 +65,7 @@ export default {
     InformationComponent,
     SynopsisComponent,
     RelatedAnimeComponent,
-    CharactersComponent,
-    StaffsComponent,
+    CharactersAndStaffs,
     EpisodesComponent,
     ReviewsComponent,
   },
@@ -100,8 +100,12 @@ export default {
         return {
           Score: store.state.anime.animeDetail.data.score,
           ScoredBy: formatPrice(store.state.anime.animeDetail.data.scored_by),
-          Ranks: "#" + store.state.anime.animeDetail.data.rank,
-          Popularity: "#" + store.state.anime.animeDetail.data.popularity,
+          Ranks: store.state.anime.animeDetail.data.rank
+            ? "#" + store.state.anime.animeDetail.data.rank
+            : 0,
+          Popularity: store.state.anime.animeDetail.data.popularity
+            ? "#" + store.state.anime.animeDetail.data.popularity
+            : 0,
           Members: formatPrice(store.state.anime.animeDetail.data.members),
           Favorites: formatPrice(store.state.anime.animeDetail.data.favorites),
         };
@@ -163,25 +167,20 @@ export default {
         text: "Related Anime",
         data: relatedAnime,
       },
-      characters: {
-        id: "characters-component",
-        text: "Characters",
-        data: "this is characters",
-      },
-      staffs: {
-        id: "staffs-component",
-        text: "Staffs",
-        data: "this is staffs",
+      charactersandstaffs: {
+        id: "characters-and-staffs-component",
+        text: "Characters and Staffs",
+        data: route.params.mal_id,
       },
       episodes: {
         id: "episodes-component",
         text: "Episodes",
-        data: "this is episodes",
+        data: route.params.mal_id,
       },
       Reviews: {
         id: "reviews-component",
         text: "Reviews",
-        data: "this is reviews",
+        data: route.params.mal_id,
       },
     });
     const componentData = ref(tabs.information);

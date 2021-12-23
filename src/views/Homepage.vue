@@ -5,14 +5,11 @@
     title="Fate / Stay Night:<br>Unlimited Blade Works"
     description="After 30 days of travel across the world..."
   ></banner-component>
-  <anime-slide-component :animes="$store.state.homepage.releaseToday.data" title="Release Today"></anime-slide-component>
-  <anime-slide-component
-    :animes="$store.state.homepage.seasonFall2021.data"
-    title="Fall Season 2021"
-  ></anime-slide-component>
-  <anime-slide-component :animes="$store.state.homepage.topAnimes.data" title="Top Anime"></anime-slide-component>
-  <anime-slide-component :animes="$store.state.homepage.topMangas.data" title="Top Manga"></anime-slide-component>
-  <anime-slide-component :animes="$store.state.homepage.upComing.data" title="UpComing"></anime-slide-component>
+  <slider-component :animes="$store.state.homepage.releaseToday.data" title="Release Today"></slider-component>
+  <slider-component :animes="$store.state.homepage.seasonFall2021.data" title="Fall Season 2021"></slider-component>
+  <slider-component :animes="$store.state.homepage.topAnimes.data" title="Top Anime"></slider-component>
+  <slider-component :animes="$store.state.homepage.topMangas.data" title="Top Manga"></slider-component>
+  <slider-component :animes="$store.state.homepage.upComing.data" title="UpComing"></slider-component>
 </template>
 
 <script>
