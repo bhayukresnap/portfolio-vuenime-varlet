@@ -1,7 +1,7 @@
 <template>
   <var-row>
-    <var-col :span="12" v-for="anime in animes" :key="anime" style="padding: 0 10px;">
-      <card-anime-component :anime="anime"></card-anime-component>
+    <var-col :span="12" v-for="value in data" :key="value" style="padding: 0 10px;">
+      <card-anime-component :data="value"></card-anime-component>
     </var-col>
   </var-row>
   <div class="filter">
@@ -16,7 +16,7 @@ export default {
   components: {
     CardAnimeComponent,
   },
-  props: ["animes"],
+  props: ["data"],
 };
 </script>
 

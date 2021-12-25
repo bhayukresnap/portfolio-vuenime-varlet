@@ -31,7 +31,7 @@ const router = createRouter({
         component: BlankRouter,
         children: [{
             name: 'anime-detail',
-            path: ':mal_id',
+            path: ':animeId',
             props: true,
             component: AnimeIndex
         }],

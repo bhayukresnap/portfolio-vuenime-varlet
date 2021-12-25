@@ -43,7 +43,7 @@
 
     <var-skeleton :loading="loading" :rows="7">
       <keep-alive>
-        <component :is="componentData.id" :data="componentData.data"></component>
+        <component :is="componentData.id" :data="componentData.data" :status="true"></component>
       </keep-alive>
     </var-skeleton>
   </div>
@@ -57,7 +57,7 @@ import { formatPrice } from "@/helpers";
 import InformationComponent from "./Information.vue";
 import SynopsisComponent from "./Synopsis.vue";
 import RelatedAnimeComponent from "./RelatedAnime.vue";
-import CharactersAndStaffs from "./CharactersAndStaffs.vue";
+import CharactersComponent from "./Characters.vue";
 import EpisodesComponent from "./Episodes.vue";
 import ReviewsComponent from "./Reviews.vue";
 export default {
@@ -65,7 +65,7 @@ export default {
     InformationComponent,
     SynopsisComponent,
     RelatedAnimeComponent,
-    CharactersAndStaffs,
+    CharactersComponent,
     EpisodesComponent,
     ReviewsComponent,
   },
@@ -84,14 +84,15 @@ export default {
     let relatedAnime = ref(0);
 
     watch(
-      () => route.params.mal_id,
-      (selection) => {
-        selection ? store.dispatch("anime/getAnimeDetail", selection) : null;
+      () => route.params.animeId,
+      (current) => {
+        current ? store.dispatch("anime/getAnimeDetail", current) : null;
       }
     );
+
     onMounted(() => {
       nextTick(() => {
-        store.dispatch("anime/getAnimeDetail", route.params.mal_id);
+        store.dispatch("anime/getAnimeDetail", route.params.animeId);
       });
     });
 
@@ -168,19 +169,19 @@ export default {
         data: relatedAnime,
       },
       charactersandstaffs: {
-        id: "characters-and-staffs-component",
-        text: "Characters and Staffs",
-        data: route.params.mal_id,
+        id: "characters-component",
+        text: "Characters",
+        data: route.params.animeId,
       },
       episodes: {
         id: "episodes-component",
         text: "Episodes",
-        data: route.params.mal_id,
+        data: route.params.animeId,
       },
       Reviews: {
         id: "reviews-component",
         text: "Reviews",
-        data: route.params.mal_id,
+        data: route.params.animeId,
       },
     });
     const componentData = ref(tabs.information);

@@ -1,9 +1,14 @@
 <template>
   <div class="animeSlide">
-    <h2>{{$attrs.title}}</h2>
-    <div class="slider">
-      <var-col :span="9" v-for="anime in animes" :key="anime" style="padding: 0 10px;">
-        <card-anime-component :anime="anime"></card-anime-component>
+    <h2 v-if="$attrs.title">{{$attrs.title}}</h2>
+    <div class="slider" v-if="type == 'anime'">
+      <var-col :span="9" v-for="value in data" :key="value" style="padding: 0 10px 0 0;">
+        <card-anime-component :data="value"></card-anime-component>
+      </var-col>
+    </div>
+    <div class="slider" v-else>
+      <var-col :span="9" v-for="value in data" :key="value" style="padding: 0 10px 0 0;">
+        <card-person-component :data="value"></card-person-component>
       </var-col>
     </div>
   </div>
@@ -11,11 +16,19 @@
 
 <script>
 import CardAnimeComponent from "./CardAnimeComponent.vue";
+import CardPersonComponent from "./CardPersonComponent.vue";
 export default {
   components: {
     CardAnimeComponent,
+    CardPersonComponent,
   },
-  props: ["animes"],
+  props: {
+    data: Array,
+    type: {
+      type: String,
+      default: "anime",
+    },
+  },
 };
 </script>
 

@@ -6,7 +6,7 @@
       <var-col :span="17">
         <span v-for="data in value" :key="data" class="animeDetailMultiple">
           <router-link
-            :to="{name: 'anime-detail', params: {mal_id: data.mal_id}}"
+            :to="{name: 'anime-detail', params: {animeId: data.mal_id}}"
             v-if="$route.params.mal_id !== data.mal_id"
           >{{data.name}}</router-link>
           <template v-else>{{data.name}}</template>

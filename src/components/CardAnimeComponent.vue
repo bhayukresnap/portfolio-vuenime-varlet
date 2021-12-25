@@ -1,20 +1,20 @@
 <template>
-  <var-skeleton card :loading="anime.mal_id ? false : true" :rows="1">
+  <var-skeleton card :loading="data.mal_id ? false : true" :rows="1">
     <div class="animeCard">
-      <router-link :to="{name: 'anime-detail', params: {mal_id: anime.mal_id}}">
-        <var-image :src="anime.image_url" fit="fill" width="100%" height="250px" lazy />
+      <router-link :to="{name: 'anime-detail', params: {animeId: data.mal_id}}">
+        <var-image :src="data.image_url" fit="fill" width="100%" height="250px" lazy />
       </router-link>
-      <div class="animeTitle">{{anime.title}}</div>
-      <div class="badgeType" :type="anime.type">
+      <div class="animeTitle">{{data.title}}</div>
+      <div class="badgeType" :type="data.type">
         <var-chip
           size="small"
           :round="false"
-          :color="$store.state.badgeTypeColors[anime.type]"
-        >{{anime.type}}</var-chip>
+          :color="$store.state.badgeTypeColors[data.type]"
+        >{{data.type}}</var-chip>
       </div>
       <div class="badgeScore">
         <var-chip color="var(--red) " size="small" :round="false">
-          {{anime.score ? anime.score : "N/A"}}
+          {{data.score ? data.score : "N/A"}}
           <template #left>
             <var-icon name="star" :size="14" />
           </template>
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  props: ["anime"],
+  props: ["data"],
 };
 </script>
 

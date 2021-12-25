@@ -15,12 +15,8 @@ export default {
         };
     },
     mutations: {
-        getSeasonList(state) {
-            Api.get(state.seasonList.serverName).then(data => {
-                state.seasonList.data = data.data.archive;
-            }).catch(err => {
-                console.log(err)
-            });
+        setSeasonList(state, data) {
+            state.seasonList.data = data;
         },
         getSeasonDetail(state, value) {
             state.seasonDetail.data = max;
@@ -32,8 +28,17 @@ export default {
         },
     },
     actions: {
-        getSeasonList(context) {
-            context.commit('getSeasonList');
+        async getSeasonList({ state, commit }) {
+            try {
+                const response = await Api.get(state.seasonList.serverName);
+                commit('setSeasonList', response.data.archive)
+            } catch (err) {
+                if (err.response.status === 404) {
+                    commit('setSeasonList', err.response.status);
+                } else {
+                    commit('setErrors', err.response.status, { root: true });
+                }
+            }
         },
         getSeasonDetail(context, value) {
             context.commit('getSeasonDetail', value);

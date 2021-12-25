@@ -17,6 +17,12 @@ export const getToday = () => {
     return today.toLocaleString('en-us', { weekday: 'long' });
 };
 
+export const timeFormatter = (time) => {
+    if (!time) return;
+    const date = new Date(time);
+    return date.toLocaleDateString('en-id', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+}
+
 export const formatPrice = (value) => {
     let val = (value / 1).toFixed(0).replace('.', ',')
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")

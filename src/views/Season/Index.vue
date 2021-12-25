@@ -26,18 +26,18 @@
 </template>
 
 <script>
+import { onMounted, reactive } from "vue";
+import { useStore } from "vuex";
 export default {
-  data() {
-    return {
-      season: [],
-    };
-  },
-  mounted() {
-    this.$nextTick(function () {
-      if (!this.$store.state.season.seasonList.data.length) {
-        this.$store.dispatch("season/getSeasonList");
+  setup() {
+    const store = useStore();
+    const season = reactive([]);
+    onMounted(() => {
+      if (!store.state.season.seasonList.data.length) {
+        store.dispatch("season/getSeasonList");
       }
     });
+    return { season };
   },
 };
 </script>
