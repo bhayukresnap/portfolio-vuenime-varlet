@@ -7,7 +7,8 @@ export default {
                 serverName: '/anime',
                 data: '',
                 characters: '',
-                episodes: '',
+                episodes: [],
+                episode_last_page: 1,
                 reviews: '',
             },
             errors: [],
@@ -21,7 +22,12 @@ export default {
             state.animeDetail.characters = data;
         },
         setAnimeEpisodes(state, data) {
-            state.animeDetail.episodes = data;
+            if (!data) state.animeDetail.episodes = [];
+            else if (state.animeDetail.episodes[0] === false) state.animeDetail.episodes.shift();
+            else state.animeDetail.episodes = state.animeDetail.episodes.concat(data)
+        },
+        setAnimeEpisodeLastPage(state, data) {
+            state.animeDetail.episode_last_page = data;
         }
     },
     actions: {
@@ -33,7 +39,7 @@ export default {
                 const response = await Api.get(`${state.animeDetail.serverName}/${animeId}`);
                 commit('setAnimeData', response.data);
             } catch (err) {
-                if (err.response.status === 404) {
+                if (err.response && err.response.status === 404) {
                     commit('setAnimeData', err.response.status);
                 } else {
                     commit('setErrors', err.response.status, { root: true });
@@ -56,17 +62,20 @@ export default {
             }
         },
         async getAnimeEpisodes({ commit, state }, animeId) {
+            let current = 1;
             try {
-                const response = await Api.get(`${state.animeDetail.serverName}/${animeId}/episodes`);
-                commit('setAnimeEpisodes', response.data.episodes);
-                console.log(response.data.episodes)
+                while (current <= state.animeDetail.episode_last_page) {
+                    const response = await Api.get(`${state.animeDetail.serverName}/${animeId}/episodes/${current}`);
+                    commit('setAnimeEpisodes', response.data.episodes);
+                    commit('setAnimeEpisodeLastPage', response.data.episodes_last_page);
+                    current++;
+                }
             } catch (err) {
                 if (err.response.status === 404) {
                     commit('setAnimeEpisodes', err.response.status);
                 } else {
                     commit('setErrors', err.response.status, { root: true });
                 }
-
             }
         },
     },

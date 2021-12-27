@@ -4,10 +4,33 @@
       <div class="closeButton">
         <var-icon name="window-close" :size="36" @click="$emit('closeSearchbar')" />
       </div>
-      <input type="text" class="searchInput" placeholder="Cari berdasarkan Judul, Genre, Pemain" />
+      <input
+        type="text"
+        class="searchInput"
+        placeholder="Find your anime here"
+        v-model="searchInput"
+        @keyup.enter="searchSubmit(searchInput)"
+      />
     </div>
   </div>
 </template>
+
+<script>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+export default {
+  setup(props, { emit }) {
+    const searchInput = ref("");
+    const router = useRouter();
+    const searchSubmit = (data) => {
+      router.push({ name: "search", params: { searchId: encodeURI(data) } });
+      emit("closeSearchbar");
+    };
+
+    return { searchInput, searchSubmit };
+  },
+};
+</script>
 
 <style>
 .search[status="true"] ~ main {

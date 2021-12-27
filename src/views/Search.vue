@@ -1,3 +1,3 @@
 <template>
-  <div></div>
+  <div>{{decodeURI($route.params.searchId)}}</div>
 </template>
