@@ -4,11 +4,6 @@
     color="var(--light-green)"
     v-if="$store.state.anime.animeDetail.episodes === false"
   />
-  <h3
-    style="text-align: center;"
-    v-else-if="!$store.state.anime.animeDetail.episodes.length"
-  >We don't have the episodes for now</h3>
-
   <var-list
     loading-text="Loading"
     finished-text="No more"

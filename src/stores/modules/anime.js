@@ -28,7 +28,10 @@ export default {
         },
         setAnimeEpisodeLastPage(state, data) {
             state.animeDetail.episode_last_page = data;
-        }
+        },
+        setAnimeReviews(state, data) {
+            state.animeDetail.reviews = data;
+        },
     },
     actions: {
         async getAnimeDetail({ commit, state }, animeId) {
@@ -73,6 +76,18 @@ export default {
             } catch (err) {
                 if (err.response.status === 404) {
                     commit('setAnimeEpisodes', err.response.status);
+                } else {
+                    commit('setErrors', err.response.status, { root: true });
+                }
+            }
+        },
+        async getAnimeReviews({ commit, state }, animeId) {
+            try {
+                const response = await Api.get(`${state.animeDetail.serverName}/${animeId}/reviews/1`);
+                commit('setAnimeReviews', response.data.reviews)
+            } catch (err) {
+                if (err.response.status === 404) {
+                    commit('setAnimeReviews', err.response.status);
                 } else {
                     commit('setErrors', err.response.status, { root: true });
                 }
